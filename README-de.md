@@ -31,6 +31,18 @@ Versatile Thermostat UI Card (Verfügbar auf [Github](https://github.com/jmcolli
 # Was ist neu?
 ![Neu](images/new-icon.png)
 
+## Release Unveröffentlicht
+<!-- TODO: "Unveröffentlicht" durch die tatsächliche Versionsnummer ersetzen, sobald diese Änderung veröffentlicht wird -->
+> ⚠️ **Breaking Change**: Verhalten von Auto-Start/Auto-Stopp
+>
+> Wenn die Auto-Start/Stopp-Funktion einen automatischen Stopp auslöst, schaltet der angezeigte _VTherm_ seinen `hvac_mode` nicht mehr auf `off`:
+> - der angezeigte _VTherm_ behält nun den von Ihnen angeforderten `hvac_mode` bei (z. B. `heat` oder `cool`). Nur das zugrunde liegende Gerät wird ausgeschaltet,
+> - `hvac_action` zeigt nun `off` an, während der VTherm automatisch gestoppt ist, um anzuzeigen, dass das Gerät derzeit inaktiv ist,
+> - `versatile_thermostat_hvac_mode_event` wird nicht mehr ausgelöst, wenn die Auto-Start/Stopp-Funktion das zugrunde liegende Gerät stoppt oder neu startet,
+> - `hvac_off_reason` wird nie mehr auf `Auto-start/stop` gesetzt.
+>
+> Um zu erkennen, ob ein VTherm gerade automatisch gestoppt ist, verwenden Sie das Attribut `is_auto_stop_detected` (im Abschnitt `auto_start_stop_manager` der VTherm-Attribute) und/oder das Ereignis `versatile_thermostat_auto_start_stop_event`, die beide unverändert bleiben. **Wenn sich Ihre Automatisierungen oder Dashboards während eines automatischen Stopps darauf verlassen, dass der `hvac_mode` des VTherm auf `off` wechselt, oder auf `hvac_off_reason: Auto-start/stop`, müssen Sie diese aktualisieren.** Weitere Informationen [hier](documentation/de/feature-auto-start-stop.md).
+
 ## Release 10.0
 Einführung des Plugin-Mechanismus. Dadurch können externe Integrationen als Plugins für _VTherm_ verwendet werden. Die Liste der verfügbaren Plugins ist auf der [Versatile Thermostat Web site](https://www.versatile-thermostat.org/de/plugins) verfügbar.
 

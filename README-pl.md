@@ -30,6 +30,18 @@ Karta integracji VTherm UI (dostępna na [Github](https://github.com/jmcollin78/
 # Co nowego?
 ![New](images/new-icon.png)
 
+## Wydanie Niewydane
+<!-- TODO: zastąpić "Niewydane" rzeczywistym numerem wersji po wydaniu tej zmiany -->
+> ⚠️ **Zmiana niekompatybilna wstecznie (breaking change)**: zachowanie autoSTART/autoSTOP
+>
+> Gdy funkcja autoSTART/autoSTOP wyzwala automatyczne zatrzymanie, wyeksponowany termostat _VTherm_ nie przełącza już swojego `hvac_mode` na `off`:
+> - wyeksponowany _VTherm_ zachowuje teraz żądany przez użytkownika `hvac_mode` (np. `heat` lub `cool`). Wyłączane jest wyłącznie urządzenie podrzędne,
+> - `hvac_action` wskazuje teraz `off`, gdy VTherm jest automatycznie zatrzymany, co oznacza, że urządzenie jest obecnie nieaktywne,
+> - `versatile_thermostat_hvac_mode_event` nie jest już wyzwalane, gdy funkcja autoSTART/autoSTOP zatrzymuje lub ponownie uruchamia urządzenie podrzędne,
+> - `hvac_off_reason` nigdy już nie przyjmuje wartości `Auto-start/stop`.
+>
+> Aby sprawdzić, czy termostat VTherm jest obecnie automatycznie zatrzymany, użyj atrybutu `is_auto_stop_detected` (w sekcji `auto_start_stop_manager` atrybutów VTherm) i/lub zdarzenia `versatile_thermostat_auto_start_stop_event`, które pozostają bez zmian. **Jeśli Twoje automatyzacje lub pulpity nawigacyjne opierają się na przejściu `hvac_mode` termostatu VTherm na `off`, lub na `hvac_off_reason: Auto-start/stop`, podczas automatycznego zatrzymania, musisz je zaktualizować.** Więcej informacji [tutaj](documentation/pl/feature-auto-start-stop.md).
+
 ## Wydanie 10.0
 Wprowadzenie mechanizmu wtyczek. Umożliwia to korzystanie z zewnętrznych integracji jako wtyczek dla _VTherm_. Lista dostępnych wtyczek jest dostępna na stronie [Versatile Thermostat Web site](https://www.versatile-thermostat.org/pl/plugins).
 

@@ -27,6 +27,18 @@ Versatile Thermostat UI Card (K dispozici na [Github](https://github.com/jmcolli
 # Co je nového?
 ![Nové](images/new-icon.png)
 
+## Verze Nevydáno
+<!-- TODO: nahradit "Nevydáno" skutečným číslem verze při vydání -->
+> ⚠️ **Zásadní změna (breaking change)**: chování auto-start/stop
+>
+> Když funkce automatického spuštění/zastavení vyvolá automatické zastavení, zobrazený _VTherm_ už nepřepíná svůj `hvac_mode` na `off`:
+> - zobrazený _VTherm_ nyní zachovává `hvac_mode`, který jste požadovali (např. `heat` nebo `cool`). Vypíná se pouze podřízené zařízení,
+> - `hvac_action` nyní zobrazuje `off`, dokud je VTherm automaticky zastaven, což znamená, že zařízení je momentálně neaktivní,
+> - `versatile_thermostat_hvac_mode_event` se již nespouští, když funkce auto-start/stop zastaví nebo restartuje podřízené zařízení,
+> - `hvac_off_reason` už nikdy nenabývá hodnoty `Auto-start/stop`.
+>
+> Zda je VTherm aktuálně automaticky zastaven, zjistíte pomocí atributu `is_auto_stop_detected` (v sekci `auto_start_stop_manager` atributů VTherm) a/nebo události `versatile_thermostat_auto_start_stop_event`, které zůstávají beze změny. **Pokud vaše automatizace nebo dashboardy spoléhají na to, že `hvac_mode` VTherm přejde na `off`, nebo na `hvac_off_reason: Auto-start/stop`, během automatického zastavení, musíte je aktualizovat.** Více informací [zde](documentation/cs/feature-auto-start-stop.md).
+
 ## Verze 10.0
 Zavedení mechanismu pluginů. Umožňuje používat externí integrace jako pluginy pro _VTherm_. Seznam dostupných pluginů je na [webu Versatile Thermostat](https://www.versatile-thermostat.org/cs/plugins).
 
